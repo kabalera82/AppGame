@@ -10,6 +10,7 @@ import k82studio.models.Personaje;
 
 import java.util.List;
 
+
 public class MainView extends BorderPane {
 
     private StackPane centro;
@@ -76,9 +77,23 @@ public class MainView extends BorderPane {
     }
 
     private void abrirJuego(Inventario inventario) {
-        GameView gameView = new GameView(inventario.getPorIndice(0));
-        centro.getChildren().clear();
-        centro.getChildren().add(gameView);
-        gameView.requestFocus(); // importante para capturar teclas
+        Personaje jugador = inventario.getPorIndice(0);
+        GameView gameView = new GameView(jugador);
+
+        // registramos qué pasa cuando el jugador toca a un enemigo
+        gameView.setOnCombate(enemigo -> {
+            CombateView combate = new CombateView(jugador, enemigo);
+
+            // cuando el combate acaba, volvemos al mapa y reanudamos
+            combate.setOnCombateTerminado(() -> {
+                setCenter(gameView);
+                gameView.reanudar();
+            });
+
+            setCenter(combate);
+        });
+
+        setCenter(gameView);
+        gameView.requestFocus();
     }
 }
