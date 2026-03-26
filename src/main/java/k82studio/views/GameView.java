@@ -53,6 +53,19 @@ public class GameView extends VBox {
         setOnKeyPressed(e  -> teclasActivas.add(e.getCode()));
         setOnKeyReleased(e -> teclasActivas.remove(e.getCode()));
 
+        // Al perder el foco, limpiar teclas activas para evitar movimiento eterno
+        focusedProperty().addListener((obs, wasFocused, isFocused) -> {
+            if (!isFocused) teclasActivas.clear();
+        });
+
+        // Pedir foco automáticamente al añadirse a la escena
+        sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) requestFocus();
+        });
+
+        // Recuperar foco al hacer clic sobre el canvas
+        setOnMouseClicked(e -> requestFocus());
+
         iniciarBucle();
     }
 
