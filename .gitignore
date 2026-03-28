@@ -1,0 +1,20 @@
+# Backend
+.gradle/
+backend/.gradle/
+backend/build/
+backend/out/
+backend/.idea/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Gradle local cache used in this workspace
+.gradle-user-home/
+
+# Environment / OS
+.env
+.env.*
+.DS_Store
+Thumbs.db
