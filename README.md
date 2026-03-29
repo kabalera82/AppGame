@@ -275,9 +275,9 @@ npm run dev
 - [x] Flyway activo — `V1__initial_schema.sql` aplicado
 - [x] `.gitignore` configurado — builds y caches excluidos
 - [x] Primer commit en `master`
-- [ ] Frontend scaffoldeado (`npm create vite`, Phaser, Axios instalados)
-- [ ] CORS configurado en Spring Security para `localhost:5173`
-- [ ] `GET /api/health` responde `200` desde el frontend
+- [x] Frontend scaffoldeado (`npm create vite`, Phaser, Axios instalados)
+- [x] CORS configurado en Spring Security para `localhost:5173`
+- [x] `GET /api/health` responde `200` desde el frontend
 
 ### Base de datos — Fase datos de juego
 - [ ] `V2__game_schema.sql` — tablas: `hexagonos_partida`, `unidades_en_partida`, `mazo_partida`, `mano_jugador`, `efectos_ocultos`

@@ -25,14 +25,14 @@
 - [x] Flyway activo — `V1__initial_schema.sql` aplicado
 - [x] `.gitignore` correcto — primer commit en `main` pusheado a GitHub
 
-**Por hacer:**
-- [ ] **Backend** — `GET /api/health` público devuelve `{ status: "ok" }`
-- [ ] **Backend** — CORS configurado en Spring Security para `http://localhost:5173`
-- [ ] **Frontend** — Vite + React + TypeScript + Phaser 3 + Axios en `/frontend`
-- [ ] **Frontend** — `client.ts`: axios con `baseURL: localhost:8080`
-- [ ] **Frontend** — `App.tsx` llama a `/api/health` al montar y muestra el resultado
+**Ya hecho:**
+- [x] **Backend** — `GET /api/health` público devuelve `{ status: "ok" }`
+- [x] **Backend** — CORS configurado en Spring Security para `http://localhost:5173`
+- [x] **Frontend** — Vite + React + TypeScript + Phaser 3 + Axios en `/frontend`
+- [x] **Frontend** — `client.ts`: axios con `baseURL: localhost:8080`
+- [x] **Frontend** — `App.tsx` llama a `/api/health` al montar y muestra el resultado
 
-**Checkpoint:** `localhost:5173` muestra "BoardWar ok" sin errores CORS en consola.
+**Checkpoint:** `localhost:5173` muestra "BoardWar ok" sin errores CORS en consola. ✅
 
 ---
 
@@ -225,7 +225,7 @@
 ## Progreso global
 
 ```
-BLOQUE 0  — Entorno operativo          ████░░░░░░  4/9   ← siguiente a completar
+BLOQUE 0  — Entorno operativo          ██████████  9/9   ✅ COMPLETO
 BLOQUE 1  — Mapa hexagonal             ░░░░░░░░░░  0/7
 BLOQUE 2  — Login y acceso             ░░░░░░░░░░  0/10
 BLOQUE 3  — Fichas en tablero          ░░░░░░░░░░  0/7
