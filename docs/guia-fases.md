@@ -22,41 +22,71 @@ Repo      →  monorepo: /backend  +  /frontend  (carpeta ya existe vacía)
 ## Fase 0 — Scaffold del frontend y CORS
 
 ### Objetivo visual
-Abrir `http://localhost:5173` y ver una pantalla en blanco con el texto "BoardWar" — el frontend arranca y habla con el backend.
+Abrir `http://localhost:5173` y ver el texto "BoardWar — ok" — el frontend arranca y habla con el backend.
 
-### Backend
-- Añadir `@CrossOrigin` o `CorsConfigurationSource` en Spring Security permitiendo `http://localhost:5173`
-- Crear endpoint público `GET /api/health` que devuelve `{ status: "ok" }`
+### Orden de implementación
+> Primero el backend, luego el frontend. El checkpoint requiere ambos corriendo.
+>
+> **Mientras el backend no esté corriendo:** el frontend arranca pero muestra "Error" en el navegador. Es normal — React está llamando a `/api/health` y nadie responde. No es un bug del frontend.
 
-### Frontend
-Dentro de `/frontend`:
+---
+
+### Paso 1 — Backend
+
+**Archivos a crear:**
+- `backend/src/main/java/k82studio/backend/api/rest/HealthController.java`
+- `backend/src/main/java/k82studio/backend/infrastructure/config/SecurityConfig.java`
+
+**`HealthController.java`:** endpoint público `GET /api/health` que devuelve `{ "status": "ok" }`.
+
+**`SecurityConfig.java`:** configura Spring Security con:
+- CORS permitiendo origen `http://localhost:5173`
+- Rutas públicas: `/api/health` y `/api/auth/**`
+- Resto requiere autenticación (preparado para JWT más adelante)
+
+Arrancar backend:
+```powershell
+cd backend
+.\gradlew.bat bootRun
 ```
-npm create vite@latest . -- --template react-ts
-npm install phaser
-npm install axios
+
+Verificar que funciona antes de tocar el frontend:
+```
+GET http://localhost:8080/api/health  →  { "status": "ok" }
 ```
 
-Estructura inicial:
+---
+
+### Paso 2 — Frontend
+
+El scaffold ya está hecho (`npm create vite`, phaser y axios instalados). Solo hay que crear:
+
+**`src/api/client.ts`:** instancia axios con `baseURL: http://localhost:8080` y `withCredentials: true`.
+
+**`src/App.tsx`:** exportación default (`export default function App()`). Llama a `GET /api/health` al montar con `useEffect` y muestra el resultado en pantalla. No importar ningún CSS.
+
+Estructura resultante:
 ```
-frontend/
-├── src/
-│   ├── main.tsx           punto de entrada React
-│   ├── App.tsx            router raíz
-│   ├── api/
-│   │   └── client.ts      axios instance apuntando a localhost:8080
-│   └── scenes/            Phaser scenes (vacío por ahora)
-├── index.html
-├── vite.config.ts
-└── package.json
+frontend/src/
+├── main.tsx           (ya existe — punto de entrada)
+├── App.tsx            (ya creado)
+├── api/
+│   └── client.ts      (ya creado)
+└── scenes/            (vacío por ahora)
 ```
 
-`client.ts`: instancia axios con `baseURL: http://localhost:8080` y `withCredentials: true`.
+Arrancar frontend:
+```powershell
+cd frontend
+npm run dev
+```
 
-`App.tsx`: llama a `GET /api/health` al montar y muestra el resultado.
+---
 
 ### Checkpoint
-- `npm run dev` arranca en `localhost:5173`
-- La consola del navegador muestra `{ status: "ok" }` sin errores CORS
+- `localhost:5173` muestra "BoardWar — ok"
+- Sin errores CORS en la consola del navegador
+- Si el backend no está corriendo: el frontend arranca igual pero muestra "error — backend no responde". Eso es normal hasta que completes el Paso 1.
 
 ---
 
